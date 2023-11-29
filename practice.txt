@@ -1,9 +1,6 @@
 Practice file for resolving merging conflicts
 
-<<<<<<< HEAD
 Sarah Robillard
 207-752-7422
 
 hello
-=======
->>>>>>> 71286d0a1f895b3e97217af43c12c7f3868d367e
