@@ -9,7 +9,7 @@ export default function Trivia(){
     const[question, setQuestion] = useState();
     const[answer, setAnswer]=useState();
     
-    function handleClick(category){
+    function HandleClick(category){
        
     let options = {
     method: 'GET',
@@ -19,7 +19,9 @@ export default function Trivia(){
     let url = 'https://api.api-ninjas.com/v1/trivia?category=' + category;
   
   
-    fetch(url,options)
+
+    useEffect( () => {   
+        fetch(url,options)
         .then(res => res.json()) // parse response as JSON
         .then(data => {
           console.log(data)
@@ -28,18 +30,31 @@ export default function Trivia(){
         })
         .catch(err => {
             console.log(`error ${err}`)
-        }); 
+        });
+    });
+
+        return (
+            <div>
+                <p>Question: {question}</p>
+                <form>
+                    <label>
+                        Answer:
+                            <input type="text" value = {answer} onChange = {(e) => setAnswer(e.target.value)} />
+                    </label>
+                </form>
+            </div>
+        );
     }
 
     return(
     <div>
         <h1>Hello, Welcome to the Trivia Game</h1>
         <p>Choose a Category:</p>
-            <button onClick = {handleClick('general')}>General</button>
-            <button onClick = {handleClick('music')}>Music</button>
-            <button onClick = {handleClick('geography')}>Geography</button>
-            <button onClick = {handleClick('sportsleisure')}>Sports and Leisure</button>
-            <button onClick = {handleClick('historyholidays')}>History and Holidays</button>
+            <button onClick = {HandleClick('general')}>General</button>
+            <button onClick = {HandleClick('music')}>Music</button>
+            <button onClick = {HandleClick('geography')}>Geography</button>
+            <button onClick = {HandleClick('sportsleisure')}>Sports and Leisure</button>
+            <button onClick = {HandleClick('historyholidays')}>History and Holidays</button>
     </div>
 
     );
