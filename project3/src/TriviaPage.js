@@ -20,41 +20,55 @@ export default function Trivia(){
   
   
 
-    useEffect( () => {   
+    
         fetch(url,options)
         .then(res => res.json()) // parse response as JSON
         .then(data => {
           console.log(data)
-          setQuestion(data.question)
-          setAnswer(data.answer)
+          console.log(data[0].question)
+          setQuestion(data[0].question)
+          setAnswer(data[0].answer)
         })
         .catch(err => {
             console.log(`error ${err}`)
         });
-    });
+ 
 
-        return (
-            <div>
-                <p>Question: {question}</p>
-                <form>
-                    <label>
-                        Answer:
-                            <input type="text" value = {answer} onChange = {(e) => setAnswer(e.target.value)} />
-                    </label>
-                </form>
-            </div>
-        );
+      
+    }
+
+    function EvaluateAnswer(e){
+        if(e==answer){
+            updateScore(currentScore+1);
+        }
     }
 
     return(
     <div>
         <h1>Hello, Welcome to the Trivia Game</h1>
         <p>Choose a Category:</p>
-            <button onClick = {HandleClick('general')}>General</button>
-            <button onClick = {HandleClick('music')}>Music</button>
-            <button onClick = {HandleClick('geography')}>Geography</button>
-            <button onClick = {HandleClick('sportsleisure')}>Sports and Leisure</button>
-            <button onClick = {HandleClick('historyholidays')}>History and Holidays</button>
+            <button onClick = {()=>HandleClick('general')}>General</button>
+            <button onClick = {()=>HandleClick('music')}>Music</button>
+            <button onClick = {()=>HandleClick('geography')}>Geography</button>
+            <button onClick = {()=>HandleClick('sportsleisure')}>Sports and Leisure</button>
+            <button onClick = {()=>HandleClick('historyholidays')}>History and Holidays</button>
+            <div>
+                <p>Question: {question}</p>
+                <form>
+                    <label>
+                        Answer:
+                            <input type="text"  onChange = {(e) => {
+                                setAnswer(e.target.value)
+                                if(e.target.value===answer){
+                                    updateScore(currentScore+1);
+                                }
+                            }
+                            } />
+                    </label>
+                </form>
+                <p>Score: {currentScore}</p>
+
+            </div>
     </div>
 
     );
