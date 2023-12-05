@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 export default function Trivia(){
 
-    const [currentScore,updateScore]=useState();
+    const [currentScore,updateScore]=useState(0);
     const[category,changeCategory]=useState();
     const[question, setQuestion] = useState();
     const[answer, setAnswer]=useState();
@@ -50,13 +50,14 @@ export default function Trivia(){
             updateScore(currentScore+1);
             updateMessage('Correct');
         }else{
-            updateMessage('Not Correct!');
+            updateMessage('Not Correct! Correct answer was: '+ {answer});
         }
     }
 
     return(
     <div>
         <h1>Hello, Welcome to the Trivia Game</h1>
+        <p>Score: {currentScore}</p>
         <p>Choose a Category:</p>
             <button onClick = {()=>HandleClick('general')}>General</button>
             <button onClick = {()=>HandleClick('music')}>Music</button>
@@ -65,15 +66,15 @@ export default function Trivia(){
             <button onClick = {()=>HandleClick('historyholidays')}>History and Holidays</button>
             <div>
                 <p>Question: {question}</p>
-                <form onSubmit={()=>HandleSubmit}>
+                
                     <label>
                         Answer:
                             <input type="text"  onChange = {(e)=>EvaluateAnswer(e)}/>
                     </label>
-                    <input type = "submit"/>
-                </form>
+                    <button onClick={HandleSubmit}>Submit</button>
+
+
                 <p>{message}</p>
-                <p>Score: {currentScore}</p>
 
             </div>
     </div>
