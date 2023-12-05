@@ -4,10 +4,12 @@ import { useState, useEffect } from 'react';
 
 export default function Trivia(){
 
-    const [currentScore,updateScore]=useState(0);
+    const [currentScore,updateScore]=useState();
     const[category,changeCategory]=useState();
     const[question, setQuestion] = useState();
     const[answer, setAnswer]=useState();
+    const[userAnswer,setUserAnswer] = useState();
+    const[message,updateMessage]=useState();
     
     function HandleClick(category){
        
@@ -38,8 +40,17 @@ export default function Trivia(){
     }
 
     function EvaluateAnswer(e){
-        if(e==answer){
+        console.log(e.target.value);
+       setUserAnswer(e.target.value);
+    }
+
+    function HandleSubmit(){
+        if(userAnswer==answer){
+            console.log(userAnswer);
             updateScore(currentScore+1);
+            updateMessage('Correct');
+        }else{
+            updateMessage('Not Correct!');
         }
     }
 
@@ -54,18 +65,14 @@ export default function Trivia(){
             <button onClick = {()=>HandleClick('historyholidays')}>History and Holidays</button>
             <div>
                 <p>Question: {question}</p>
-                <form>
+                <form onSubmit={()=>HandleSubmit}>
                     <label>
                         Answer:
-                            <input type="text"  onChange = {(e) => {
-                                setAnswer(e.target.value)
-                                if(e.target.value===answer){
-                                    updateScore(currentScore+1);
-                                }
-                            }
-                            } />
+                            <input type="text"  onChange = {(e)=>EvaluateAnswer(e)}/>
                     </label>
+                    <input type = "submit"/>
                 </form>
+                <p>{message}</p>
                 <p>Score: {currentScore}</p>
 
             </div>
