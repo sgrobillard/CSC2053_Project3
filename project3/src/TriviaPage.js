@@ -50,7 +50,7 @@ export default function Trivia(){
             updateScore(currentScore+1);
             updateMessage('Correct');
         }else{
-            updateMessage('Not Correct! Correct answer was: '+ {answer});
+            updateMessage('Not Correct! Correct answer was: ' + answer);
         }
     }
 
